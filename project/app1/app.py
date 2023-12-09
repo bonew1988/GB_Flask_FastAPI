@@ -19,6 +19,8 @@ def submit():
     else:
         return redirect(url_for('index'))
 
+# test comment
+
 
 if __name__ == '__main__':
     app.run(debug=True)
