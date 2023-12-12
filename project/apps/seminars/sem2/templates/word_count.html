@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Count</title>
+</head>
+
+<body>
+    <h2>Word Count</h2>
+    <form action="{{ url_for('count_words') }}" method="post">
+        <label for="text">Введите текст:</label>
+        <textarea id="text" name="text" rows="4" cols="50" required></textarea><br>
+        <input type="submit" value="Отправить">
+    </form>
+</body>
+
+</html>
