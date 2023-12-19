@@ -28,6 +28,6 @@ def main(directory_path):
 
 
 if __name__ == "__main__":
-    
+
     directory_path = "/home/bonew/Рабочий стол/Flask_FastAPI/downloaded_files"
     main(directory_path)
