@@ -1,7 +1,6 @@
 import os
 import requests
 import threading
-import multiprocessing
 import asyncio
 import time
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
@@ -22,7 +21,8 @@ async def download_image_async(url, folder="downloads"):
             with open(image_name, 'wb') as file:
                 for chunk in response.iter_content(1024):
                     file.write(chunk)
-            print(f"Downloaded {url} to {image_name} in {end_time - start_time:.2f} seconds")
+            print(
+                f"Downloaded {url} to {image_name} in {end_time - start_time:.2f} seconds")
     except Exception as e:
         print(f"Error downloading {url}: {e}")
 
@@ -37,7 +37,8 @@ def download_image_thread(url, folder="downloads"):
             with open(image_name, 'wb') as file:
                 for chunk in response.iter_content(1024):
                     file.write(chunk)
-            print(f"Downloaded {url} to {image_name} in {end_time - start_time:.2f} seconds")
+            print(
+                f"Downloaded {url} to {image_name} in {end_time - start_time:.2f} seconds")
     except Exception as e:
         print(f"Error downloading {url}: {e}")
 
@@ -45,9 +46,11 @@ def download_image_thread(url, folder="downloads"):
 def download_image_process(url, folder="downloads"):
     try:
         start_time = time.time()
-        threading.Thread(target=download_image_thread, args=(url, folder)).start()
+        threading.Thread(target=download_image_thread,
+                         args=(url, folder)).start()
         end_time = time.time()
-        print(f"Started download process for {url} in {end_time - start_time:.2f} seconds")
+        print(
+            f"Started download process for {url} in {end_time - start_time:.2f} seconds")
     except Exception as e:
         print(f"Error starting download process for {url}: {e}")
 
@@ -61,16 +64,16 @@ if __name__ == "__main__":
 
     start_time = time.time()
 
-    # Asynchronous approach
+    # Asynchronous
     loop = asyncio.get_event_loop()
     tasks = [download_image_async(url, folder_name) for url in urls]
     loop.run_until_complete(asyncio.gather(*tasks))
 
-    # Multi-threading approach
+    # Multi-threading
     with ThreadPoolExecutor(max_workers=len(urls)) as executor:
         executor.map(download_image_thread, urls, [folder_name]*len(urls))
 
-    # Multi-processing approach
+    # Multi-processing
     with ProcessPoolExecutor(max_workers=len(urls)) as executor:
         executor.map(download_image_process, urls, [folder_name]*len(urls))
 
